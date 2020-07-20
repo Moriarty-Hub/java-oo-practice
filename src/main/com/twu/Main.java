@@ -1,6 +1,6 @@
 package com.twu;
 
-import com.twu.Controller.CentralController;
+import com.twu.controller.CentralController;
 
 public class Main {
 

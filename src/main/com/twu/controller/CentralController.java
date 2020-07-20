@@ -1,13 +1,14 @@
-package com.twu.Controller;
+package com.twu.controller;
 
-import com.twu.Model.RankListItem;
-import com.twu.Model.User;
-import com.twu.Service.EventService;
-import com.twu.Service.UserService;
-import com.twu.View.Prompt;
+import com.twu.mapper.Database;
+import com.twu.model.Event;
+import com.twu.model.User;
+import com.twu.service.EventService;
+import com.twu.service.UserService;
+import com.twu.view.Prompt;
 
+import java.sql.SQLException;
 import java.util.List;
-import java.util.Scanner;
 
 public class CentralController {
 
@@ -17,9 +18,17 @@ public class CentralController {
     private static final UserService userService = new UserService();
     private static final EventService eventService = new EventService();
 
-    private static final Scanner scanner = new Scanner(System.in);
-
     public void start() {
+        try {
+            Database.establishConnection();
+            welcome();
+        } catch (SQLException | ClassNotFoundException throwable) {
+            throwable.printStackTrace();
+            System.out.println("数据库连接失败");
+        }
+    }
+
+    public void welcome() {
         int userIdentity = Prompt.showWelcomePrompt();
         if (userIdentity == 1) {
             isAdmin = false;
@@ -31,7 +40,7 @@ public class CentralController {
             exit();
         } else {
             System.out.println("无效选项，请重新输入");
-            start();
+            welcome();
         }
     }
 
@@ -42,7 +51,7 @@ public class CentralController {
             String password = account[1];
             if (!userService.isAccountValid(username, password)) {
                 System.out.println("用户名或密码不正确，登录失败");
-                start();
+                welcome();
             }
             currentUser = userService.getUserObjectByUsername(username);
         } else {
@@ -58,8 +67,7 @@ public class CentralController {
     public void showOptions() {
         System.out.println("你好，" + currentUser.getUsername() + "，你可以: ");
         if (isAdmin) {
-            Prompt.showOptionsOfAdmin();
-            int option = scanner.nextInt();
+            int option = Prompt.showOptionsOfAdmin();
             switch (option) {
                 case 1:
                     viewRankList();
@@ -71,15 +79,14 @@ public class CentralController {
                     addSuperEvent();
                     break;
                 case 4:
-                    start();
+                    welcome();
                     break;
                 default:
                     System.out.println("无效选项，请重新输入");
                     showOptions();
             }
         } else {
-            Prompt.showOptionsOfNormalUser();
-            int option = scanner.nextInt();
+            int option = Prompt.showOptionsOfNormalUser();
             switch (option) {
                 case 1:
                     viewRankList();
@@ -94,7 +101,7 @@ public class CentralController {
                     addEvent();
                     break;
                 case 5:
-                    start();
+                    welcome();
                     break;
                 default:
                     System.out.println("无效选项，请重新输入");
@@ -104,7 +111,7 @@ public class CentralController {
     }
 
     public void viewRankList() {
-        List<RankListItem> rankListItems = eventService.getRankList();
+        List<Event> rankListItems = eventService.getRankList();
         Prompt.showRankList(rankListItems);
         showOptions();
     }
@@ -116,8 +123,7 @@ public class CentralController {
         int numberOfVotes = Integer.parseInt(titleAndNumberOfVotes[1]);
 
         // This method needs to check whether the event exists and the number of votes is valid
-        boolean result = eventService.checkAndUpdateTheVotesOfEvent(currentUser.getUsername(),
-                currentUser.getNumberOfVotes(), numberOfVotes, title);
+        boolean result = eventService.checkAndUpdateTheVotesOfEvent(currentUser.getUsername(), numberOfVotes, title);
 
         if (!result) {
             System.out.println("投票失败");
@@ -166,6 +172,8 @@ public class CentralController {
     }
 
     public void exit() {
-
+        userService.saveUserIntoDatabase();
+        eventService.saveEventIntoDatabase();
+        Database.releaseResources();
     }
 }

@@ -1,8 +1,16 @@
-package com.twu.Service;
+package com.twu.service;
 
-import com.twu.Model.User;
+import com.twu.model.User;
 
 public class UserService {
+
+    public UserService() {
+        loadUserFromDatabase();
+    }
+
+    private void loadUserFromDatabase() {
+
+    }
 
     public boolean isAccountValid(String username, String password) {
 
@@ -26,6 +34,10 @@ public class UserService {
     public int getNumberOfVotesOfUser(String username) {
 
         return 0;
+    }
+
+    public void saveUserIntoDatabase() {
+
     }
 
 }
