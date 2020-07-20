@@ -7,9 +7,14 @@ import com.twu.model.User;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class EventService {
+
+    private static final int INITIAL_NUMBER_OF_VOTES = 0;
+    private static final int INITIAL_SPECIFIED_RANK = 0;
+    private static final int INITIAL_PRICE = 0;
 
     private final UserMapper userMapper;
     private final EventMapper eventMapper;
@@ -92,11 +97,13 @@ public class EventService {
     }
 
     public void addNewEvent(String title) {
-
+        String id = UUID.randomUUID().toString();
+        eventMapper.insertEvent(id, title, INITIAL_NUMBER_OF_VOTES, INITIAL_SPECIFIED_RANK, INITIAL_PRICE, false);
     }
 
     public void addNewSuperEvent(String title) {
-
+        String id = UUID.randomUUID().toString();
+        eventMapper.insertEvent(id, title, INITIAL_NUMBER_OF_VOTES, INITIAL_SPECIFIED_RANK, INITIAL_PRICE, true);
     }
 
     public void saveEventIntoDatabase() {

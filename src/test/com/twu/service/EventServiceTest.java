@@ -205,4 +205,32 @@ public class EventServiceTest {
             assertEquals(expectedRankList.get(i), actualRankList.get(i));
         }
     }
+
+    @Test
+    public void testAddNewEvent() {
+        String title = "抗洪抢险";
+        assertFalse(eventService.isEventExist(title));
+        eventService.addNewEvent(title);
+        assertTrue(eventService.isEventExist(title));
+        Event event = eventMapper.findEventByTitle(title);
+        assertEquals(title, event.getTitle());
+        assertEquals(0, event.getNumberOfVotes());
+        assertEquals(0, event.getSpecifiedRank());
+        assertEquals(0, event.getPrice());
+        assertFalse(event.isSuperEvent());
+    }
+
+    @Test
+    public void testAddNewSuperEvent() {
+        String title = "抗洪抢险";
+        assertFalse(eventService.isEventExist(title));
+        eventService.addNewSuperEvent(title);
+        assertTrue(eventService.isEventExist(title));
+        Event event = eventMapper.findEventByTitle(title);
+        assertEquals(title, event.getTitle());
+        assertEquals(0, event.getNumberOfVotes());
+        assertEquals(0, event.getSpecifiedRank());
+        assertEquals(0, event.getPrice());
+        assertTrue(event.isSuperEvent());
+    }
 }

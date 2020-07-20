@@ -66,4 +66,11 @@ public class EventMapper {
                 + "'";
         Database.execute(sql);
     }
+
+    public void insertEvent(String id, String title, int numberOfVotes, int specifiedRank, int price, boolean isSuperEvent) {
+        String sql = "INSERT INTO " + EVENT_TABLE_NAME + " (id, title, number_of_votes, specified_rank, price, " +
+                "is_super_event) VALUES ('" + id + "', '" + title + "', '" + numberOfVotes + "', '" + specifiedRank +
+                "', '" + price + "', '" + (isSuperEvent ? 1 : 0) + "')";
+        Database.execute(sql);
+    }
 }

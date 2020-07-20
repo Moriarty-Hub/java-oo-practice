@@ -122,4 +122,23 @@ public class EventMapperTest {
             assertEquals(sampleEventList.get(i), actualEventList.get(i));
         }
     }
+
+    @Test
+    public void testInsertEvent() {
+        String id = "a0c55f4b-54c4-4e74-8c3c-5807f3dea435";
+        String title = "抗洪抢险";
+        int numberOfVotes = 16;
+        int specifiedRank = 0;
+        int price = 0;
+        boolean isSuperEvent = true;
+
+        assertNull(eventMapper.findEventByTitle(title));
+
+        eventMapper.insertEvent(id, title, numberOfVotes, specifiedRank, price, isSuperEvent);
+
+        Event expectedEvent = new Event(id, title, numberOfVotes, specifiedRank, price, isSuperEvent);
+        Event actualEvent = eventMapper.findEventByTitle(title);
+        assertNotNull(actualEvent);
+        assertEquals(expectedEvent, actualEvent);
+    }
 }
