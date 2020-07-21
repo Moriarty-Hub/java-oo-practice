@@ -60,10 +60,4 @@ public class Database {
         }
     }
 
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        Database.establishConnection();
-        execute("INSERT INTO user_test (id, username, password, is_admin, number_of_votes) " +
-                "VALUES ('19be7aba-85dd-4168-ba9d-1cf550d03329', 'admin', 'admin', '1', '10')");
-        Database.releaseResources();
-    }
 }

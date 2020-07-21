@@ -1,3 +1,11 @@
+# NOTE
+
+1. 在数据库中有四张表，分别是：user、 event、 user_test、 event_test，前面两张表用于生产环境，后两者则用于测试。在运行测试用例之前，请将mapper/UserMapper中第13行的USER_TABLE_NAME以及mapper/EventMapper中第13行的EVENT_TABLE_NAME分别修改为"user_test"和"event_test"，以确保生产环境的数据免遭污染以及测试结果的正确。
+
+2. 我在test/com/twu/MainTest中编写了与讲解视频中完全一致的输入，可以通过比对两者运行结果的输出来判断程序运行的正确性。
+
+    
+
 # Java oo 练习
 
 做一个热搜排行榜系统

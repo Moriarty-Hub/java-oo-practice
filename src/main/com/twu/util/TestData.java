@@ -33,6 +33,12 @@ public class TestData {
         assertFalse(Database.execute(insertUser5));
     }
 
+    public static void insertAdmin() {
+        String insertUser = "INSERT INTO " + USER_TABLE_NAME + " (id, username, password, is_admin, number_of_votes) " +
+                "VALUES ('19be7aba-85dd-4168-ba9d-1cf550d03329', 'admin', 'admin123', '1', '10')";
+        assertFalse(Database.execute(insertUser));
+    }
+
     public static void insertEvent() {
         String event1 = "INSERT INTO " + EVENT_TABLE_NAME + " (id, title, number_of_votes, specified_rank, price, " +
                 "is_super_event) VALUES('b945d517-9121-45eb-97b3-4f795fe95020', '美股熔断', '8', '0', '0', '0')";
