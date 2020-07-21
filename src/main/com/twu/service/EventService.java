@@ -89,7 +89,9 @@ public class EventService {
             return false;
         }
         if (!title.equals(rankList.get(rank - 1).getTitle())) {
-            eventMapper.deleteEventByTitle(rankList.get(rank - 1).getTitle());
+            if (rankList.get(rank - 1).getPrice() != 0) {
+                eventMapper.deleteEventByTitle(rankList.get(rank - 1).getTitle());
+            }
             eventMapper.updateSpecifiedFieldOfEventByTitle(title, "specified_rank", Integer.toString(rank));
         }
         eventMapper.updateSpecifiedFieldOfEventByTitle(title, "price", Integer.toString(value));
@@ -104,10 +106,6 @@ public class EventService {
     public void addNewSuperEvent(String title) {
         String id = UUID.randomUUID().toString();
         eventMapper.insertEvent(id, title, INITIAL_NUMBER_OF_VOTES, INITIAL_SPECIFIED_RANK, INITIAL_PRICE, true);
-    }
-
-    public void saveEventIntoDatabase() {
-
     }
 
 }

@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UserMapperTest {
 
@@ -60,5 +60,22 @@ public class UserMapperTest {
         for (int i = 0; i < expectedResult.size(); i++) {
             assertEquals(expectedResult.get(i), actualResult.get(i));
         }
+    }
+
+    @Test
+    public void testInsertUser() {
+        String id = "de7e2576-19a2-48d3-a6c2-4894e28c9781";
+        String username = "young";
+        String password = "password";
+        boolean isAdmin = false;
+        int numberOfVotes = 50;
+        User expectedUser = new User(id, username, password, isAdmin, numberOfVotes);
+
+        assertNull(userMapper.findUserByUsername(username));
+        userMapper.insertUser(id, username, password, isAdmin, numberOfVotes);
+        User actualUser = userMapper.findUserByUsername(username);
+        assertNotNull(actualUser);
+        assertEquals(expectedUser, actualUser);
+
     }
 }

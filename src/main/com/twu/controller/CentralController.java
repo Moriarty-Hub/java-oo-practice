@@ -172,8 +172,6 @@ public class CentralController {
     }
 
     public void exit() {
-        userService.saveUserIntoDatabase();
-        eventService.saveEventIntoDatabase();
         Database.releaseResources();
     }
 }

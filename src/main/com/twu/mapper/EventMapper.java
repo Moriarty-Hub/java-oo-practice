@@ -10,7 +10,7 @@ import java.util.List;
 public class EventMapper {
 
     private static EventMapper eventMapper = null;
-    private static final String EVENT_TABLE_NAME = "event_test";
+    private final String EVENT_TABLE_NAME = "event";
 
     public static EventMapper getInstance() {
         if (eventMapper == null) {

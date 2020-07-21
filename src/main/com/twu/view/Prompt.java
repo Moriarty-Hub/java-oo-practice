@@ -18,7 +18,7 @@ public class Prompt {
         System.out.println("1. 用户");
         System.out.println("2. 管理员");
         System.out.println("3. 退出");
-        return scanner.nextInt();
+        return Integer.parseInt(scanner.nextLine());
     }
 
     /**
@@ -48,7 +48,7 @@ public class Prompt {
         System.out.println("3. 购买热搜");
         System.out.println("4. 添加热搜");
         System.out.println("5. 退出");
-        return scanner.nextInt();
+        return Integer.parseInt(scanner.nextLine());
     }
 
     public static int showOptionsOfAdmin() {
@@ -56,7 +56,7 @@ public class Prompt {
         System.out.println("2. 添加热搜");
         System.out.println("3. 添加超级热搜");
         System.out.println("4. 退出");
-        return scanner.nextInt();
+        return Integer.parseInt(scanner.nextLine());
     }
 
     /**
@@ -77,7 +77,7 @@ public class Prompt {
         System.out.println("请输入你要投票的热搜名称：");
         String title = scanner.nextLine();
         System.out.println("请输入你要投票的热搜票数：（你目前还有：" + availableNumberOfVotes + "票）");
-        String numberOfVotes = String.valueOf(scanner.nextInt());
+        String numberOfVotes = String.valueOf(Integer.parseInt(scanner.nextLine()));
         return new String[] {title, numberOfVotes};
     }
 
@@ -85,9 +85,9 @@ public class Prompt {
         System.out.println("请输入你要购买的热搜名称：");
         String title = scanner.nextLine();
         System.out.println("请输入你要购买的热搜排名：");
-        String rank = String.valueOf(scanner.nextInt());
+        String rank = String.valueOf(Integer.parseInt(scanner.nextLine()));
         System.out.println("请输入你要购买的热搜金额：");
-        String value = String.valueOf(scanner.nextInt());
+        String value = String.valueOf(Integer.parseInt(scanner.nextLine()));
         return new String[] {title, rank, value};
     }
 

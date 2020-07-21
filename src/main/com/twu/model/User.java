@@ -1,7 +1,6 @@
 package com.twu.model;
 
 import java.util.Objects;
-import java.util.UUID;
 
 public class User {
     private final String id;

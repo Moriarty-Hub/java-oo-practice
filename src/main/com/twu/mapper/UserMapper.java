@@ -10,8 +10,7 @@ import java.util.List;
 public class UserMapper {
 
     private static UserMapper userMapper = null;
-    private static List<User> userList;
-    private static final String USER_TABLE_NAME = "user_test";
+    private static final String USER_TABLE_NAME = "user";
 
     public static UserMapper getInstance() {
         if (userMapper == null) {
@@ -60,6 +59,13 @@ public class UserMapper {
     public void updateSpecifiedFieldOfUserByUsername(String username, String attribute, String value) {
         String sql = "UPDATE " + USER_TABLE_NAME + " SET " + attribute + " = '" + value + "' WHERE username = '" + username
                 + "'";
+        Database.execute(sql);
+    }
+
+    public void insertUser(String id, String username, String password, boolean isAdmin, int numberOfVotes) {
+        String sql = "INSERT INTO " + USER_TABLE_NAME + " (id, username, password, is_admin, number_of_votes) " +
+                "VALUES ('" + id + "', '" + username + "', '" + password + "', '" + (isAdmin ? 1 : 0) + "', '" +
+                numberOfVotes + "')";
         Database.execute(sql);
     }
 }
